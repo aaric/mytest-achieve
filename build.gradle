@@ -1,0 +1,57 @@
+allprojects {
+    apply plugin: 'idea'
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'org.springframework.boot'
+
+    bootRun {
+        addResources = true
+    }
+
+    repositories {
+        maven {
+            url "http://$nexusServer/content/groups/public/"
+        }
+        mavenLocal()
+        mavenCentral()
+    }
+
+    [compileJava,compileTestJava,javadoc]*.options*.encoding = "UTF-8"
+
+    ext.libraries = [
+            test: [
+                    "junit:junit:$junitVersion",
+                    "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+            ],
+            common: [
+                    "commons-lang:commons-lang:$commonsLangVersion"
+            ]
+    ]
+
+    dependencies {
+        compile libraries.common
+        testCompile libraries.test
+    }
+
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
+
+}
+
+buildscript {
+    repositories {
+        maven {
+            url "http://$nexusServer/content/groups/public/"
+        }
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+    }
+}

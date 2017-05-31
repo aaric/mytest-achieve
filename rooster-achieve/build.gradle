@@ -1,0 +1,21 @@
+dependencies {
+    compile 'org.apache.rocketmq:rocketmq-client:4.0.0-incubating'
+
+    compile 'org.apache.hbase:hbase-client:1.2.5'
+    compile 'org.springframework.data:spring-data-hadoop:2.4.0.RELEASE'
+
+    compile 'com.alibaba:druid:1.0.31'
+    compile 'mysql:mysql-connector-java:5.1.41'
+
+    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.0') {
+        exclude group: 'org.slf4j', module: 'log4j-over-slf4j'
+        exclude group: 'ch.qos.logback', module: 'logback-classic'
+    }
+
+    compile("org.springframework.boot:spring-boot-starter:$springBootVersion") {
+        exclude group: 'org.slf4j', module: 'log4j-over-slf4j'
+        exclude group: 'ch.qos.logback', module: 'logback-classic'
+    }
+
+    testCompile 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:1.3.0'
+}

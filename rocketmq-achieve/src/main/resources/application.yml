@@ -1,0 +1,4 @@
+rocketmq:
+         namesrvAddr: linux6-1:9876
+         producerGroup: ProducerGroupName
+         consumerGroup: ConsumerGroupName

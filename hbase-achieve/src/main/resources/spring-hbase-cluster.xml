@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans" xmlns:hadoop="http://www.springframework.org/schema/hadoop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/hadoop
+			http://www.springframework.org/schema/hadoop/spring-hadoop.xsd">
+
+    <!-- HDFS配置 -->
+    <hadoop:configuration resources="classpath:hbase-site-cluster.xml" />
+
+    <!-- HBase连接配置 -->
+    <hadoop:hbase-configuration configuration-ref="hadoopConfiguration" />
+
+    <!-- HbaseTemplate Bean配置 -->
+    <bean id="hbaseTemplate" class="org.springframework.data.hadoop.hbase.HbaseTemplate">
+        <property name="configuration" ref="hbaseConfiguration" />
+        <property name="encoding" value="UTF-8" />
+    </bean>
+
+</beans>
