@@ -71,23 +71,43 @@ public class LanduCMDParserTest {
             int dataAttrType = DataPackUtil.readUInt1(buffer);
             switch (dataAttrType) {
                 case 0x01:
-                    // 0x01-发动机点火时
+                    // 7.1 0x01-发动机点火时
                     // 数据格式: 【数据内容】::=【点火电压值】+【定位信息】
                     System.out.println("## 0x01-发动机点火时");
 
-                    // 7.1 点火电源
+                    // 7.1.1 点火电源
                     String firingVoltageValue = DataPackUtil.readString(buffer);
                     System.out.printf("firingVoltageValue: %skm/h\n", firingVoltageValue);
 
-                    // 7.2 定位信息
+                    // 7.1.2 定位信息
                     // 数据格式：【定位信息】::=【车速】+【当前行程行驶距离】+【经度】+【分割符】+【纬度】+【分割符】+【方向】+【分割符】+【定位时间】+【分割符】+【定位方式】
-                    // 7.2.1 车速
+                    // 7.1.2.1 车速
                     String speed = DataPackUtil.readString(buffer);
                     System.out.printf("speed: %s\n", speed);
 
-                    // 7.2.2 当前行程行驶距离
+                    // 7.1.2.2 当前行程行驶距离
                     String travelDistance = DataPackUtil.readString(buffer);
                     System.out.printf("travelDistance: %s\n", travelDistance);
+
+                    // 7.1.2.3 经度
+                    String longitude = DataPackUtil.readSeparatorString(buffer);
+                    System.out.printf("longitude: %s\n", longitude);
+
+                    // 7.1.2.4 纬度
+                    String latitude = DataPackUtil.readSeparatorString(buffer);
+                    System.out.printf("latitude: %s\n", latitude);
+
+                    // 7.1.2.5 方向
+                    String direction = DataPackUtil.readSeparatorString(buffer);
+                    System.out.printf("direction: %s\n", direction);
+
+                    // 7.1.2.6 定位时间
+                    String positioningDate = DataPackUtil.readSeparatorString(buffer);
+                    System.out.printf("positioningDate: %s\n", positioningDate);
+
+                    // 7.1.2.7 定位方式
+                    String positioningMode = DataPackUtil.readString(buffer);
+                    System.out.printf("positioningMode: %s\n", positioningMode);
 
                     break;
                 case 0x02:
@@ -114,6 +134,7 @@ public class LanduCMDParserTest {
 
         }
         System.out.println("-------------------------");
+        System.out.printf("readerIndex: %d, writerIndex: %d\n", buffer.readerIndex(), buffer.writerIndex());
 
         /* 释放资源 */
         buffer.release();

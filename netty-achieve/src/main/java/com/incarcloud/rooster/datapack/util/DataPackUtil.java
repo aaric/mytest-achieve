@@ -43,6 +43,38 @@ public final class DataPackUtil {
     }
 
     /**
+     * 根据offset获得2byte无符号整型(高位在前)<br>
+     *
+     * @param buffer ByteBuf
+     * @return int
+     */
+    public static int readUInt2(ByteBuf buffer) {
+        if(null == buffer) {
+            throw new IllegalArgumentException("buffer is null");
+        }
+        int offset = buffer.readerIndex();
+        return readUInt2(buffer, offset);
+    }
+
+    /**
+     * 根据offset获得2byte无符号整型(高位在前)<br>
+     *
+     * @param buffer ByteBuf
+     * @param offset 偏移
+     * @return int
+     */
+    public static int readUInt2(ByteBuf buffer, int offset) {
+        if(null == buffer) {
+            throw new IllegalArgumentException("buffer is null");
+        }
+        // 丢弃4个字节
+        buffer.skipBytes(2);
+        // 返回数值
+        return (buffer.getByte(offset) & 0xFF) << 8
+                | (buffer.getByte(offset + 1) & 0xFF);
+    }
+
+    /**
      * 根据offset获得4byte无符号整型(高位在前)<br>
      *
      * @param buffer ByteBuf
@@ -98,11 +130,38 @@ public final class DataPackUtil {
      * @return string
      */
     public static String readString(ByteBuf buffer, int offset) {
+        return readString(buffer, offset, (byte) 0x00);
+    }
+
+    /**
+     * 根据offset获得以separator结束的字符串<br>
+     *
+     * @param buffer ByteBuf
+     * @param separator 分隔符
+     * @return string
+     */
+    public static String readString(ByteBuf buffer, byte separator) {
+        if(null == buffer) {
+            throw new IllegalArgumentException("buffer is null");
+        }
+        int offset = buffer.readerIndex();
+        return readString(buffer, offset, separator);
+    }
+
+    /**
+     * 根据offset获得以separator结束的字符串<br>
+     *
+     * @param buffer ByteBuf
+     * @param offset 偏移
+     * @param separator 分隔符
+     * @return string
+     */
+    public static String readString(ByteBuf buffer, int offset, byte separator) {
         if(null == buffer) {
             throw new IllegalArgumentException("buffer is null");
         }
         // 扫描
-        while (0x00 != buffer.getByte(buffer.readerIndex())) {
+        while (separator != buffer.getByte(buffer.readerIndex())) {
             buffer.skipBytes(1);
         }
         // 读取长度
@@ -111,6 +170,16 @@ public final class DataPackUtil {
         buffer.skipBytes(1);
         // 返回字符串
         return new String(ByteBufUtil.getBytes(buffer, offset, length));
+    }
+
+    /**
+     * 根据offset获得以','结束的字符串<br>
+     *
+     * @param buffer ByteBuf
+     * @return string
+     */
+    public static String readSeparatorString(ByteBuf buffer) {
+        return readString(buffer, (byte) ',');
     }
 
     private DataPackUtil(){}
