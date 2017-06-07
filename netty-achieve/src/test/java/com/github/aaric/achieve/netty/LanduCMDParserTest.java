@@ -1,11 +1,9 @@
 package com.github.aaric.achieve.netty;
 
+import com.incarcloud.rooster.datapack.util.DataPackUtil;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import org.junit.Test;
-
-import javax.xml.bind.DatatypeConverter;
 
 /**
  * LANDU协议解析
@@ -48,84 +46,69 @@ public class LanduCMDParserTest {
 
             // 3.远程诊断仪串号（设备号）
             // 扫描字符串
-            offset = buffer.readerIndex();
-            while (0x00 != buffer.getByte(buffer.readerIndex())) {
-                buffer.skipBytes(1);
-            }
-            String obdCode = new String(ByteBufUtil.getBytes(buffer, offset, buffer.readerIndex() - offset));
+            String obdCode = DataPackUtil.readString(buffer);
             System.out.printf("obdCode: %s\n", obdCode);
-            // 丢弃0x00
-            buffer.skipBytes(1);
 
             // 4.TripID-4个字节
-            offset = buffer.readerIndex();
-            int tripId = (buffer.getByte(offset) & 0xFF) << 24
-                    | (buffer.getByte(offset + 1) & 0xFF) << 16
-                    | (buffer.getByte(offset + 2) & 0xFF) << 8
-                    | (buffer.getByte(offset + 3) & 0xFF);
+            int tripId = DataPackUtil.readUInt4(buffer);
             System.out.printf("tripId: %d\n", tripId);
-            // 丢弃4个字节
-            buffer.skipBytes(4);
 
             // 5.VID
             // 扫描字符串
-            offset = buffer.readerIndex();
-            while (0x00 != buffer.getByte(buffer.readerIndex())) {
-                buffer.skipBytes(1);
-            }
-            String vid = new String(ByteBufUtil.getBytes(buffer, offset, buffer.readerIndex() - offset));
+            String vid = DataPackUtil.readString(buffer);
             System.out.printf("vid: %s\n", vid);
-            // 丢弃0x00
-            buffer.skipBytes(1);
 
             // 5.VIN
             // 扫描字符串
-            offset = buffer.readerIndex();
-            while (0x00 != buffer.getByte(buffer.readerIndex())) {
-                buffer.skipBytes(1);
-            }
-            String vin = new String(ByteBufUtil.getBytes(buffer, offset, buffer.readerIndex() - offset));
+            String vin = DataPackUtil.readString(buffer);
             System.out.printf("vin: %s\n", vin);
-            // 丢弃0x00
-            buffer.skipBytes(1);
 
             // 6.取得检测数据时间戳
-            offset = buffer.readerIndex();
-            while (0x00 != buffer.getByte(buffer.readerIndex())) {
-                buffer.skipBytes(1);
-            }
-            String receiveDate = new String(ByteBufUtil.getBytes(buffer, offset, buffer.readerIndex() - offset));
+            String receiveDate = DataPackUtil.readString(buffer);
             System.out.printf("receiveDate: %s\n", receiveDate);
-            // 丢弃0x00
-            buffer.skipBytes(1);
 
             // 7.数据属性标识
-            offset = buffer.readerIndex();
-            switch (buffer.getByte(offset)) {
+            int dataAttrType = DataPackUtil.readUInt1(buffer);
+            switch (dataAttrType) {
                 case 0x01:
                     // 0x01-发动机点火时
                     // 数据格式: 【数据内容】::=【点火电压值】+【定位信息】
-                    System.out.println("0x01-发动机点火时");
+                    System.out.println("## 0x01-发动机点火时");
+
+                    // 7.1 点火电源
+                    String firingVoltageValue = DataPackUtil.readString(buffer);
+                    System.out.printf("firingVoltageValue: %skm/h\n", firingVoltageValue);
+
+                    // 7.2 定位信息
+                    // 数据格式：【定位信息】::=【车速】+【当前行程行驶距离】+【经度】+【分割符】+【纬度】+【分割符】+【方向】+【分割符】+【定位时间】+【分割符】+【定位方式】
+                    // 7.2.1 车速
+                    String speed = DataPackUtil.readString(buffer);
+                    System.out.printf("speed: %s\n", speed);
+
+                    // 7.2.2 当前行程行驶距离
+                    String travelDistance = DataPackUtil.readString(buffer);
+                    System.out.printf("travelDistance: %s\n", travelDistance);
+
                     break;
                 case 0x02:
                     // 0x02-发动机运行中
                     // 数据格式: 【数据内容】::=【参数数量】+【【数据 ID】+【ID 数据内容】】+…
-                    System.out.println("0x02-发动机运行中");
+                    System.out.println("## 0x02-发动机运行中");
                     break;
                 case 0x03:
                     // 0x03-发动机熄火时
-                    // 数据格式: 【本行程数据小计】+【本行程车速分组统计】+【驾驶习惯统计】+【定位信息】
-                    System.out.println("0x03-发动机熄火时");
+                    // 数据格式: 【数据内容】::=【本行程数据小计】+【本行程车速分组统计】+【驾驶习惯统计】+【定位信息】
+                    System.out.println("## 0x03-发动机熄火时");
                     break;
                 case 0x04:
                     // 0x04-发动机熄火后
-                    // 数据格式: 【蓄电池电压值】
-                    System.out.println("0x04-发动机熄火后");
+                    // 数据格式: 【数据内容】::=【蓄电池电压值】
+                    System.out.println("## 0x04-发动机熄火后");
                     break;
                 case 0x05:
                     // 0x05-车辆不能检测
                     // 数据格式: 无【数据内容】上传
-                    System.out.println("0x05-车辆不能检测");
+                    System.out.println("## 0x05-车辆不能检测");
                     break;
             }
 
