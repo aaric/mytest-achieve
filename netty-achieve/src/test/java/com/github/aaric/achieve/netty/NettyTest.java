@@ -1,5 +1,10 @@
 package com.github.aaric.achieve.netty;
 
+import org.junit.Test;
+
+import java.io.File;
+import java.io.FileOutputStream;
+
 /**
  * Netty test class
  *
@@ -7,4 +12,14 @@ package com.github.aaric.achieve.netty;
  * @since 1.0-SNAPSHOT
  */
 public class NettyTest {
+
+    @Test
+    public void testServer() throws Exception {
+        // TODO
+    }
+
+    @Test
+    public void testClient() throws Exception {
+        // TODO
+    }
 }

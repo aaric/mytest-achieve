@@ -3,7 +3,12 @@ package com.github.aaric.achieve.netty;
 import com.incarcloud.rooster.datapack.util.DataPackUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * LANDU协议解析
@@ -12,6 +17,18 @@ import org.junit.Test;
  * @since 1.0-SNAPSHOT
  */
 public class LanduCMDParserTest {
+
+    private byte[] data;
+
+    @Before
+    public void begin() throws IOException {
+        // 准备数据
+        String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
+        FileInputStream fio = new FileInputStream(new File(desktopPath, "output.dat"));
+        data = new byte[fio.available()];
+        fio.read(data, 0, fio.available());
+        fio.close();
+    }
 
     /**
      * 3.1.1 车辆检测数据主动上传(0x1601)<br>
@@ -22,19 +39,10 @@ public class LanduCMDParserTest {
     @Test
     public void testVehicleDataInitiativeUpload() throws Exception {
         /* 测试数据 */
-        byte[] array = {
-                (byte) 0xAA, 0x55,
-                0x00, 0x6A,
-                (byte) 0xFF, (byte) 0x95,
-                0x00,
-                0x05,
-                0x16, 0x01, 0x49, 0x4E, 0x43, 0x41, 0x52, 0x30, 0x30, 0x30, 0x30, 0x30, 0x39, 0x00, 0x00, 0x00, 0x00, 0x52, 0x31, 0x33, 0x00, 0x00, 0x32, 0x30, 0x31, 0x34, 0x2D, 0x30, 0x39, 0x2D, 0x30, 0x34, 0x20, 0x32, 0x33, 0x3A, 0x31, 0x35, 0x3A, 0x32, 0x33, 0x00, 0x01, 0x37, 0x2E, 0x38, 0x00, 0x30, 0x00, 0x30, 0x00, 0x57, 0x30, 0x30, 0x30, 0x2E, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x2C, 0x53, 0x30, 0x30, 0x2E, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x2C, 0x30, 0x2C, 0x31, 0x39, 0x37, 0x30, 0x2D, 0x30, 0x31, 0x2D, 0x30, 0x31, 0x20, 0x30, 0x30, 0x3A, 0x30, 0x30, 0x3A, 0x30, 0x34, 0x2C, 0x30, 0x00,
-                0x13, 0x01
-        };
-        ByteBuf buffer = Unpooled.wrappedBuffer(array);
+        ByteBuf buffer = Unpooled.wrappedBuffer(data);
 
         /* 假定无格式问题数据，开始解析数据内容 */
-        System.out.println("-------------------------");
+        System.out.println("-------------------------begin");
         int offset;
         // 1.丢弃协议头
         buffer.skipBytes(8);
@@ -133,7 +141,7 @@ public class LanduCMDParserTest {
             }
 
         }
-        System.out.println("-------------------------");
+        System.out.println("-------------------------end");
         System.out.printf("readerIndex: %d, writerIndex: %d\n", buffer.readerIndex(), buffer.writerIndex());
 
         /* 释放资源 */
