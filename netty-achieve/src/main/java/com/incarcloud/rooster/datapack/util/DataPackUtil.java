@@ -3,6 +3,8 @@ package com.incarcloud.rooster.datapack.util;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * ByteBuf工具类
  *
@@ -10,6 +12,37 @@ import io.netty.buffer.ByteBufUtil;
  * @since 1.0-SNAPSHOT
  */
 public final class DataPackUtil {
+
+    /**
+     * 根据offset获得1byte有符号整型<br>
+     *
+     * @param buffer ByteBuf
+     * @return int
+     */
+    public static int readInt1(ByteBuf buffer) {
+        if(null == buffer) {
+            throw new IllegalArgumentException("buffer is null");
+        }
+        int offset = buffer.readerIndex();
+        return readInt1(buffer, offset);
+    }
+
+    /**
+     * 根据offset获得1byte有符号整型<br>
+     *
+     * @param buffer ByteBuf
+     * @param offset 偏移
+     * @return int
+     */
+    public static int readInt1(ByteBuf buffer, int offset) {
+        if(null == buffer) {
+            throw new IllegalArgumentException("buffer is null");
+        }
+        // 丢弃1个字节
+        buffer.skipBytes(1);
+        // 返回数值
+        return buffer.getByte(offset);
+    }
 
     /**
      * 根据offset获得1byte无符号整型<br>
@@ -43,6 +76,38 @@ public final class DataPackUtil {
     }
 
     /**
+     * 根据offset获得2byte有符号整型(高位在前)<br>
+     *
+     * @param buffer ByteBuf
+     * @return int
+     */
+    public static int readInt2(ByteBuf buffer) {
+        if(null == buffer) {
+            throw new IllegalArgumentException("buffer is null");
+        }
+        int offset = buffer.readerIndex();
+        return readInt2(buffer, offset);
+    }
+
+    /**
+     * 根据offset获得2byte有符号整型(高位在前)<br>
+     *
+     * @param buffer ByteBuf
+     * @param offset 偏移
+     * @return int
+     */
+    public static int readInt2(ByteBuf buffer, int offset) {
+        if(null == buffer) {
+            throw new IllegalArgumentException("buffer is null");
+        }
+        // 丢弃4个字节
+        buffer.skipBytes(2);
+        // 返回数值
+        return buffer.getByte(offset) << 8
+                | (buffer.getByte(offset + 1) & 0xFF);
+    }
+
+    /**
      * 根据offset获得2byte无符号整型(高位在前)<br>
      *
      * @param buffer ByteBuf
@@ -72,6 +137,40 @@ public final class DataPackUtil {
         // 返回数值
         return (buffer.getByte(offset) & 0xFF) << 8
                 | (buffer.getByte(offset + 1) & 0xFF);
+    }
+
+    /**
+     * 根据offset获得4byte有符号整型(高位在前)<br>
+     *
+     * @param buffer ByteBuf
+     * @return int
+     */
+    public static int readInt4(ByteBuf buffer) {
+        if(null == buffer) {
+            throw new IllegalArgumentException("buffer is null");
+        }
+        int offset = buffer.readerIndex();
+        return readInt4(buffer, offset);
+    }
+
+    /**
+     * 根据offset获得4byte有符号整型(高位在前)<br>
+     *
+     * @param buffer ByteBuf
+     * @param offset 偏移
+     * @return int
+     */
+    public static int readInt4(ByteBuf buffer, int offset) {
+        if(null == buffer) {
+            throw new IllegalArgumentException("buffer is null");
+        }
+        // 丢弃4个字节
+        buffer.skipBytes(4);
+        // 返回数值
+        return buffer.getByte(offset) << 24
+                | (buffer.getByte(offset + 1) & 0xFF) << 16
+                | (buffer.getByte(offset + 2) & 0xFF) << 8
+                | (buffer.getByte(offset + 3) & 0xFF);
     }
 
     /**
@@ -169,7 +268,64 @@ public final class DataPackUtil {
         // 丢弃0x00
         buffer.skipBytes(1);
         // 返回字符串
-        return new String(ByteBufUtil.getBytes(buffer, offset, length));
+        String string = null;
+        try {
+            // LANDU使用的是GBK字符串
+            string = new String(ByteBufUtil.getBytes(buffer, offset, length), "GBK");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return string;
+    }
+
+    /**
+     * WORD：2个字节，高位字节在前，低位字节在后
+     *
+     * @param buffer ByteBuf
+     * @return
+     */
+    public static int readWord(ByteBuf buffer) {
+        return readUInt2(buffer);
+    }
+
+    /**
+     * DWORD：4个字节无符号数，高位字节在前，低位字节在后
+     *
+     * @param buffer ByteBuf
+     * @return
+     */
+    public static int readDWord(ByteBuf buffer) {
+        return readUInt4(buffer);
+    }
+
+    /**
+     * BYTE：1个字节
+     *
+     * @param buffer ByteBuf
+     * @return
+     */
+    public static int readByte(ByteBuf buffer) {
+        return readUInt1(buffer);
+    }
+
+    /**
+     * SHORT：2个字节有符号数，高字节在前，低字节在后
+     *
+     * @param buffer ByteBuf
+     * @return
+     */
+    public static int readShort(ByteBuf buffer) {
+        return readInt2(buffer);
+    }
+
+    /**
+     * LONG：4个字节有符号数，高位字节在前，低位字节在后
+     *
+     * @param buffer ByteBuf
+     * @return
+     */
+    public static int readLong(ByteBuf buffer) {
+        return readInt4(buffer);
     }
 
     /**

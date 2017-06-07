@@ -26,7 +26,7 @@ public class DiscardServerHandler extends ChannelInboundHandlerAdapter {
             // Output
             int length = buffer.writerIndex() - buffer.readerIndex();
             String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
-            File file = new File(desktopPath, "output.dat");
+            File file = new File(desktopPath, "vehicle.dat");
             if(file.exists()) {
                 file.delete();
             }
