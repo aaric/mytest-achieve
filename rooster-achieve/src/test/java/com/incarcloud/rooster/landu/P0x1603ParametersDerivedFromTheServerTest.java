@@ -20,7 +20,7 @@ import java.io.IOException;
  * @author Aaric, created on 2017-06-08T11:02.
  * @since 1.0-SNAPSHOT
  */
-public class P0x1603ParametersDerivedFromTheServer {
+public class P0x1603ParametersDerivedFromTheServerTest {
 
     private ByteBuf buffer;
 
