@@ -74,7 +74,7 @@ public class P0x1605ParametersDerivedFromTheServer {
             String receiveDate = DataPackUtil.readString(buffer);
             System.out.printf("receiveDate: %s\n", receiveDate);
 
-            // 8.0数据内容
+            // 8.数据内容
             // 格式：【数据内容】：：=十六进制数据，长度由数据包长度决定
         }
         System.out.println("-------------------------end");
