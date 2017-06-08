@@ -1,4 +1,6 @@
 dependencies {
+    compile 'io.netty:netty-all:4.1.11.Final'
+
     compile 'org.apache.rocketmq:rocketmq-client:4.0.0-incubating'
 
     compile 'org.apache.hbase:hbase-client:1.2.5'
