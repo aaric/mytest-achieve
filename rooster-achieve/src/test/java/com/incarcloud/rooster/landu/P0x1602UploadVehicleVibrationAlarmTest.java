@@ -47,7 +47,7 @@ public class P0x1602UploadVehicleVibrationAlarmTest {
         int offset;
         // 1.丢弃协议头
         buffer.skipBytes(8);
-        // 2.判断命令字-0x1601
+        // 2.判断命令字-0x1602
         offset = buffer.readerIndex();
         if(0x16 == buffer.getByte(offset) && 0x02 == buffer.getByte(offset+1)) {
             // 丢弃命令字
@@ -159,7 +159,6 @@ public class P0x1602UploadVehicleVibrationAlarmTest {
                 default:
                     System.out.println("## 无效");
             }
-
 
         }
         System.out.println("-------------------------end");
