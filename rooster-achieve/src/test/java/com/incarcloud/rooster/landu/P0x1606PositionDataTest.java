@@ -90,19 +90,19 @@ public class P0x1606PositionDataTest {
                 System.out.printf("travelDistance: %s\n", travelDistance);
 
                 // 7.2.3 经度
-                longitude = DataPackUtil.readSeparatorString(buffer);
+                longitude = DataPackUtil.readStringEmic(buffer);
                 System.out.printf("longitude: %s\n", longitude);
 
                 // 7.2.4 纬度
-                latitude = DataPackUtil.readSeparatorString(buffer);
+                latitude = DataPackUtil.readStringEmic(buffer);
                 System.out.printf("latitude: %s\n", latitude);
 
                 // 7.2.5 方向
-                direction = DataPackUtil.readSeparatorString(buffer);
+                direction = DataPackUtil.readStringEmic(buffer);
                 System.out.printf("direction: %s\n", direction);
 
                 // 7.2.6 定位时间
-                locationDate = DataPackUtil.readSeparatorString(buffer);
+                locationDate = DataPackUtil.readStringEmic(buffer);
                 System.out.printf("locationDate: %s\n", locationDate);
 
                 // 7.2.7 定位方式

@@ -334,8 +334,39 @@ public final class DataPackUtil {
      * @param buffer ByteBuf
      * @return string
      */
-    public static String readSeparatorString(ByteBuf buffer) {
+    public static String readStringEmic(ByteBuf buffer) {
         return readString(buffer, (byte) ',');
+    }
+
+    /**
+     * 推送消息远程诊断仪上传数据
+     *
+     * @param content 信息内容<br>
+     *                <ol>
+     *                <li>0x1621-【信息内容】::=【命令字】</li>
+     *                <li>0x1622-【信息内容】::=【命令字】+【项数】+【【ID】+……】</li>
+     *                <li>0x1623-【信息内容】::=【命令字】+【项数】+【【【ID】+【参数内容】】+……】</li>
+     *                <li>0x1624-【信息内容】::=【命令字】</li>
+     *                <li>0x1625-【信息内容】::=【命令字】</li>
+     *                <li>0x1626-【信息内容】::=【命令字】</li>
+     *                <li>0x16E0-【信息内容】::=【命令字】</li>
+     *                </ol>
+     * @return bytes
+     */
+    public static byte[] commandBytes(byte[] content) {
+        if(null == content || 0 == content.length) {
+            throw new IllegalArgumentException("content is null or the length is 0.");
+        }
+        // 【消息内容】::=【信息头】+【信息内容】
+        // 【信息头】::=”LD” 的十六进制表示方式
+        // 【信息内容】::=数据包格式中【数据内容】
+        byte[] bytes = new byte[2+content.length];
+        bytes[0] = 0x4C;
+        bytes[1] = 0x44;
+        for (int i = 2; i < bytes.length; i++) {
+            bytes[i] = content[i-2];
+        }
+        return bytes;
     }
 
     private DataPackUtil(){}

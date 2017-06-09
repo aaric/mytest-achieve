@@ -88,19 +88,19 @@ public class P0x1602UploadVehicleVibrationAlarmTest {
             System.out.printf("travelDistance: %s\n", travelDistance);
 
             // 9.3 经度
-            String longitude = DataPackUtil.readSeparatorString(buffer);
+            String longitude = DataPackUtil.readStringEmic(buffer);
             System.out.printf("longitude: %s\n", longitude);
 
             // 9.4 纬度
-            String latitude = DataPackUtil.readSeparatorString(buffer);
+            String latitude = DataPackUtil.readStringEmic(buffer);
             System.out.printf("latitude: %s\n", latitude);
 
             // 9.5 方向
-            String direction = DataPackUtil.readSeparatorString(buffer);
+            String direction = DataPackUtil.readStringEmic(buffer);
             System.out.printf("direction: %s\n", direction);
 
             // 9.6 定位时间
-            String locationDate = DataPackUtil.readSeparatorString(buffer);
+            String locationDate = DataPackUtil.readStringEmic(buffer);
             System.out.printf("locationDate: %s\n", locationDate);
 
             // 9.7 定位方式

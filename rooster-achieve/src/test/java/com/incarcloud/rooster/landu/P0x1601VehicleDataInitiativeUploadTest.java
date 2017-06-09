@@ -99,19 +99,19 @@ public class P0x1601VehicleDataInitiativeUploadTest {
                     System.out.printf("travelDistance: %s\n", travelDistance);
 
                     // 7.1.2.3 经度
-                    String longitude = DataPackUtil.readSeparatorString(buffer);
+                    String longitude = DataPackUtil.readStringEmic(buffer);
                     System.out.printf("longitude: %s\n", longitude);
 
                     // 7.1.2.4 纬度
-                    String latitude = DataPackUtil.readSeparatorString(buffer);
+                    String latitude = DataPackUtil.readStringEmic(buffer);
                     System.out.printf("latitude: %s\n", latitude);
 
                     // 7.1.2.5 方向
-                    String direction = DataPackUtil.readSeparatorString(buffer);
+                    String direction = DataPackUtil.readStringEmic(buffer);
                     System.out.printf("direction: %s\n", direction);
 
                     // 7.1.2.6 定位时间
-                    String locationDate = DataPackUtil.readSeparatorString(buffer);
+                    String locationDate = DataPackUtil.readStringEmic(buffer);
                     System.out.printf("locationDate: %s\n", locationDate);
 
                     // 7.1.2.7 定位方式
@@ -208,19 +208,19 @@ public class P0x1601VehicleDataInitiativeUploadTest {
                     System.out.printf("travelDistance: %s\n", travelDistance);
 
                     // 7.3.4.3 经度
-                    longitude = DataPackUtil.readSeparatorString(buffer);
+                    longitude = DataPackUtil.readStringEmic(buffer);
                     System.out.printf("longitude: %s\n", longitude);
 
                     // 7.3.4.4 纬度
-                    latitude = DataPackUtil.readSeparatorString(buffer);
+                    latitude = DataPackUtil.readStringEmic(buffer);
                     System.out.printf("latitude: %s\n", latitude);
 
                     // 7.3.4.5 方向
-                    direction = DataPackUtil.readSeparatorString(buffer);
+                    direction = DataPackUtil.readStringEmic(buffer);
                     System.out.printf("direction: %s\n", direction);
 
                     // 7.3.4.6 定位时间
-                    locationDate = DataPackUtil.readSeparatorString(buffer);
+                    locationDate = DataPackUtil.readStringEmic(buffer);
                     System.out.printf("locationDate: %s\n", locationDate);
 
                     // 7.3.4.7 定位方式
