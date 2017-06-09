@@ -114,17 +114,17 @@ public class P0x1602UploadVehicleVibrationAlarmTest {
                     // 注：未找到测试数据，按照文档格式解析数据
                     System.out.println("## 0x01-新故障码报警");
                     // 10.1.1 故障码个数
-                    int faultCodeTotal = DataPackUtil.readByte(buffer);
-                    System.out.printf("faultCodeTotal: %s\n", faultCodeTotal);
+                    int troubleCodeTotal = DataPackUtil.readByte(buffer);
+                    System.out.printf("troubleCodeTotal: %s\n", troubleCodeTotal);
 
                     // 10.1.2 故障信息
                     // 格式：【【故障码】+【故障码属性】+【故障码描述】】+……】
-                    String faultCode, faultAttr, faultDesc;
-                    for(int i = 0; i < faultCodeTotal; i++) {
-                        faultCode = DataPackUtil.readString(buffer);
-                        faultAttr = DataPackUtil.readString(buffer);
-                        faultDesc = DataPackUtil.readString(buffer);
-                        System.out.printf("%d-faultCode: %s, faultAttr: %s, faultDesc: %s\n", faultCode, faultAttr, faultDesc);
+                    String troubleCode, troubleAttr, troubleDesc;
+                    for(int i = 0; i < troubleCodeTotal; i++) {
+                        troubleCode = DataPackUtil.readString(buffer);
+                        troubleAttr = DataPackUtil.readString(buffer);
+                        troubleDesc = DataPackUtil.readString(buffer);
+                        System.out.printf("%d-(troubleCode: %s, troubleAttr: %s, troubleDesc: %s)\n", (i+1), troubleCode, troubleAttr, troubleDesc);
                     }
                     break;
                 case 0x02:

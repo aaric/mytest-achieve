@@ -79,21 +79,21 @@ public class P0x1608IdlingDataTest {
             // 8.1 故障码
             // 格式：【故障码】::=【故障码列表】::=【故障码个数】+【【【故障码】+【故障码属性】+【故障码描述】】+……】
             // 8.1.1 故障码个数
-            int faultCodeTotal = DataPackUtil.readByte(buffer);
-            System.out.printf("faultCodeTotal: %d\n", faultCodeTotal);
+            int troubleCodeTotal = DataPackUtil.readByte(buffer);
+            System.out.printf("troubleCodeTotal: %d\n", troubleCodeTotal);
 
             // 8.1.2 故障码内容
             // 注：未找到测试数据，按照文档格式解析数据
-            String faultCode, faultAttr, faultDesc;
-            for(int i = 0; i < faultCodeTotal; i++) {
+            String troubleCode, troubleAttr, troubleDesc;
+            for(int i = 0; i < troubleCodeTotal; i++) {
                 // 8.1.2.1 故障码
-                faultCode = DataPackUtil.readString(buffer);
+                troubleCode = DataPackUtil.readString(buffer);
                 // 8.1.2.2 故障码属性
-                faultAttr = DataPackUtil.readString(buffer);
+                troubleAttr = DataPackUtil.readString(buffer);
                 // 8.1.2.3 故障码描述
-                faultDesc = DataPackUtil.readString(buffer);
+                troubleDesc = DataPackUtil.readString(buffer);
                 // 打印
-                System.out.printf("%d-(faultCode: %s, faultAttr: %s, faultDesc: %s)\n", (i+1), faultCode, faultAttr, faultDesc);
+                System.out.printf("%d-(troubleCode: %s, troubleAttr: %s, troubleDesc: %s)\n", (i+1), troubleCode, troubleAttr, troubleDesc);
             }
 
             // 8.2 实时数据流(车况信息)
