@@ -15,7 +15,8 @@ import java.io.IOException;
 /**
  * 3.2.2 取得车辆当前检测数据(0x1621)<br>
  *     【命令字】+【远程诊断仪串号（设备号）】+【TripID】+【VID】+【VIN 码】+【故障分级内容】<br>
- *     【故障分级内容】::= 【严重等级】+【个数】+【故障码】
+ *     【故障分级内容】::= 【严重等级】+【个数】+【故障码】<br>
+ * <i>本命令在 V3.12 版本之后不再支持</i>
  *
  * @author Aaric, created on 2017-06-08T16:12.
  * @since 1.0-SNAPSHOT
@@ -71,6 +72,47 @@ public class P0x1621GetVehicleCheckDataTest {
             System.out.printf("vin: %s\n", vin);
 
             // 7.故障分级内容
+            // 格式：【故障分级内容】::= 【严重等级】+【个数】+【故障码】
+            // 7.1 严重等级
+            int faultLevel = DataPackUtil.readByte(buffer);
+            System.out.printf("faultLevel: %s\n", faultLevel);
+            switch (faultLevel) {
+                case 0x00:
+                    // 0x00-系统正常
+                    System.out.println("## 系统正常");
+                    break;
+                case 0x01:
+                    // 0x01-可忽略的故障
+                    System.out.println("## 可忽略的故障");
+                    break;
+                case 0x02:
+                    // 0x02-需要检修的故障
+                    System.out.println("## 需要检修的故障");
+                    break;
+                case 0x03:
+                    // 0x03-立即停车检修的故障
+                    System.out.println("## 立即停车检修的故障");
+                    break;
+                case 0xFF:
+                    // 0xFF-当前状态不适合读码
+                    System.out.println("## 当前状态不适合读码");
+                    break;
+            }
+
+            // 7.2 个数
+            int faultCodeTotal = DataPackUtil.readByte(buffer);
+            System.out.printf("faultCodeTotal: %s\n", faultCodeTotal);
+
+            // 7.3 故障码
+            // 格式：【故障码】::= 【【故障码编号】+【故障码属性】+【故障码解释】+…】
+            // 注：未找到测试数据，按照文档格式解析数据
+            String faultCode, faultAttr, faultDesc;
+            for (int i = 0; i < faultCodeTotal; i++) {
+                faultCode = DataPackUtil.readString(buffer);
+                faultAttr = DataPackUtil.readString(buffer);
+                faultDesc = DataPackUtil.readString(buffer);
+                System.out.printf("%d-(faultCode: %s, faultAttr: %s, faultDesc: %s)\n", faultCode, faultAttr, faultDesc);
+            }
         }
         System.out.println("-------------------------end");
         System.out.printf("readerIndex: %d, writerIndex: %d\n", buffer.readerIndex(), buffer.writerIndex());
