@@ -71,10 +71,9 @@ public class P0x1623SetupVehicleDiagnoseParameterTest {
             String vin = DataPackUtil.readString(buffer);
             System.out.printf("vin: %s\n", vin);
 
-            // 7.错误代码(于附录 4.01 中)
-            // 注：【错误代码】结构未说明
-            int faultCode = DataPackUtil.readWord(buffer);
-            System.out.printf("faultCode: 0x%s\n", ByteBufUtil.hexDump(new byte[]{(byte) ((faultCode >> 8) & 0xFF), (byte) (faultCode & 0xFF)}));
+            // 7.错误代码
+            int faultCode = DataPackUtil.readByte(buffer);
+            System.out.printf("faultCode: 0x%s\n", ByteBufUtil.hexDump(new byte[]{(byte) (faultCode & 0xFF)}));
 
         }
         System.out.println("-------------------------end");
