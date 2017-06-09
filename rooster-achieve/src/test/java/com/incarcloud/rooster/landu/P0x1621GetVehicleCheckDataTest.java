@@ -111,7 +111,7 @@ public class P0x1621GetVehicleCheckDataTest {
                 faultCode = DataPackUtil.readString(buffer);
                 faultAttr = DataPackUtil.readString(buffer);
                 faultDesc = DataPackUtil.readString(buffer);
-                System.out.printf("%d-(faultCode: %s, faultAttr: %s, faultDesc: %s)\n", faultCode, faultAttr, faultDesc);
+                System.out.printf("%d-(faultCode: %s, faultAttr: %s, faultDesc: %s)\n", (i+1), faultCode, faultAttr, faultDesc);
             }
         }
         System.out.println("-------------------------end");

@@ -129,12 +129,12 @@ public class P0x1601VehicleDataInitiativeUploadTest {
                     System.out.printf("paramsTotal: %d\n", paramsTotal);
 
                     // 7.2.1 参数键值对
-                    int paramKey;
-                    String paramValue;
+                    int testingId;
+                    String testingValue;
                     for(int i = 0; i < paramsTotal; i++) {
-                        paramKey = DataPackUtil.readWord(buffer);
-                        paramValue = DataPackUtil.readString(buffer);
-                        System.out.printf("%d-key: 0x%s, value: %s\n", (i + 1), ByteBufUtil.hexDump(new byte[]{(byte) ((paramKey >> 8) & 0xFF), (byte) (paramKey & 0xFF)}), paramValue);
+                        testingId = DataPackUtil.readWord(buffer);
+                        testingValue = DataPackUtil.readString(buffer);
+                        System.out.printf("%d-(testingId: 0x%s, testingValue: %s)\n", (i + 1), ByteBufUtil.hexDump(new byte[]{(byte) ((testingId >> 8) & 0xFF), (byte) (testingId & 0xFF)}), testingValue);
                     }
                     break;
                 case 0x03:
