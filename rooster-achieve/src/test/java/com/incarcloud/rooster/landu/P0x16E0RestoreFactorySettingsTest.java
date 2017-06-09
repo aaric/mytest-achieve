@@ -14,14 +14,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
- * 3.2.5 清空累计平均油耗(0x1624)<br>
- *     格式：【命令字】+【远程诊断仪串号（设备号）】+【TripID】+【VID】+【VIN 码】+【【错误代码】br>
+ * 3.3.1 恢复出厂设置(0x16E0)<br>
+ *     格式：【命令字】+【远程诊断仪串号（设备号）】+【TripID】+【VID】+【VIN 码】+【错误代码】
  * <i>注：未找到测试数据，按照文档格式解析数据</i>
  *
- * @author Aaric, created on 2017-06-09T10:20.
+ * @author Aaric, created on 2017-06-09T10:46.
  * @since 1.0-SNAPSHOT
  */
-public class P0x1624ClearAverageFuelConsumptionTest {
+public class P0x16E0RestoreFactorySettingsTest {
 
     private ByteBuf buffer;
 
@@ -49,9 +49,9 @@ public class P0x1624ClearAverageFuelConsumptionTest {
         int offset;
         // 1.丢弃协议头
         buffer.skipBytes(8);
-        // 2.判断命令字-0x1624
+        // 2.判断命令字-0x16E0
         offset = buffer.readerIndex();
-        if(0x16 == buffer.getByte(offset) && 0x24 == buffer.getByte(offset+1)) {
+        if(0x16 == buffer.getByte(offset) && 0xE0 == buffer.getByte(offset+1)) {
             // 丢弃命令字
             buffer.skipBytes(2);
 

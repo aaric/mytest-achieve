@@ -15,7 +15,7 @@ import java.io.IOException;
 
 /**
  * 3.2.7 清除车辆故障码(0x1626)<br>
- *     【命令字】+【远程诊断仪串号（设备号）】+【TripID】+【VID】+【VIN 码】+【错误代码】<br>
+ *     格式：【命令字】+【远程诊断仪串号（设备号）】+【TripID】+【VID】+【VIN 码】+【错误代码】<br>
  * <i>注：未找到测试数据，按照文档格式解析数据</i>
  *
  * @author Aaric, created on 2017-06-09T10:34.
