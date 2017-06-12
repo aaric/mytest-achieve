@@ -1,4 +1,5 @@
 dependencies {
+    compile("com.aliyun.mns:aliyun-sdk-mns:1.1.+")
 
     compile("org.springframework.boot:spring-boot-starter:$springBootVersion") {
         exclude group: 'org.slf4j', module: 'log4j-over-slf4j'
