@@ -7,6 +7,7 @@ import com.aliyun.mns.common.http.ClientConfiguration;
 import com.aliyun.mns.model.Message;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,6 +62,7 @@ public class MNSTest {
     }
 
     @Test
+    @Ignore
     public void testProducer() throws Exception {
         CloudQueue cloudQueue = client.getQueueRef(queueName);
         Message message = new Message();
@@ -71,6 +73,7 @@ public class MNSTest {
     }
 
     @Test
+    @Ignore
     public void testConsumer() throws Exception {
         CloudQueue cloudQueue = client.getQueueRef(queueName);
 
@@ -79,6 +82,6 @@ public class MNSTest {
         System.out.println(message.getMessageBodyAsString());
 
         // Delete
-        //cloudQueue.deleteMessage(message.getReceiptHandle());
+        cloudQueue.deleteMessage(message.getReceiptHandle());
     }
 }
