@@ -1,6 +1,7 @@
 package com.github.aaric.achieve.netty;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.CompositeByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.util.ByteProcessor;
@@ -147,4 +148,22 @@ public class NettyTest {
         buffer.release();
     }
 
+    @Test
+    public void testMethods() throws Exception {
+        Charset charset = Charset.defaultCharset();
+        ByteBuf buffer = Unpooled.copiedBuffer("Netty in Action rocks!", charset);
+
+        if(buffer.isWritable()) {
+            buffer.writeCharSequence(" Author: Nick.", charset);
+        }
+
+        if(buffer.isReadable()) {
+            System.out.println(buffer.toString(charset));
+            System.out.println(ByteBufUtil.hexDump(buffer));
+        }
+
+        assert 0 == buffer.readerIndex() : "Reader index is not 0";
+
+        buffer.release();
+    }
 }
