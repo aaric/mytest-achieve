@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.concurrent.*;
+
 /**
  * MNSTest
  *
@@ -83,5 +85,56 @@ public class MNSTest {
 
         // Delete
         cloudQueue.deleteMessage(message.getReceiptHandle());
+    }
+
+    @Test
+    @Ignore
+    public void testDelete() throws Exception {
+        ExecutorService service = Executors.newFixedThreadPool(1);
+        for (int i = 0; i < 100; i++) {
+            service.execute(new Runnable() {
+
+                @Override
+                public void run() {
+                    ClientConfiguration config = new ClientConfiguration();
+                    config.setMaxConnections(maxConnections);
+                    config.setMaxConnectionsPerRoute(maxConnectionsPerRoute);
+                    CloudAccount account = new CloudAccount(accessId, accessKey, accountEndpoint, config);
+                    CloudQueue cloudQueue = account.getMNSClient().getQueueRef(queueName);
+                    Message message = cloudQueue.popMessage();
+                    System.out.println(message.getMessageBodyAsString());
+                    cloudQueue.deleteMessage(message.getReceiptHandle());
+                }
+            });
+        }
+        service.shutdown();
+    }
+
+    @Test
+    @Ignore
+    public void testDelete2() throws Exception {
+        ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
+                5,
+                10,
+                3,
+                TimeUnit.SECONDS,
+                new ArrayBlockingQueue<Runnable>(10),
+                new ThreadPoolExecutor.DiscardOldestPolicy());
+        for (int i = 0; i < 100; i++) {
+            threadPool.execute(new Runnable() {
+
+                @Override
+                public void run() {
+                    ClientConfiguration config = new ClientConfiguration();
+                    config.setMaxConnections(maxConnections);
+                    config.setMaxConnectionsPerRoute(maxConnectionsPerRoute);
+                    CloudAccount account = new CloudAccount(accessId, accessKey, accountEndpoint, config);
+                    CloudQueue cloudQueue = account.getMNSClient().getQueueRef(queueName);
+                    Message message = cloudQueue.popMessage();
+                    System.out.println(message.getMessageBodyAsString());
+                    cloudQueue.deleteMessage(message.getReceiptHandle());
+                }
+            });
+        }
     }
 }
