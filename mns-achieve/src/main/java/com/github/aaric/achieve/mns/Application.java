@@ -64,7 +64,7 @@ public class Application implements CommandLineRunner {
                     CloudQueue cloudQueue = account.getMNSClient().getQueueRef(queueName);
                     Message message = cloudQueue.popMessage();
                     if(null != message) {
-                        System.out.printf("--%d: [%s]%s\n", MessageFormat.format("{0,number,000000}", ++counter), queueName, message.getMessageBodyAsString());
+                        System.out.printf("--%s: [%s]%s\n", MessageFormat.format("{0,number,000000}", ++counter), queueName, message.getMessageBodyAsString());
                         cloudQueue.deleteMessage(message.getReceiptHandle());{}
                     }
                 }
