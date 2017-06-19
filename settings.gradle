@@ -5,6 +5,7 @@ include 'springjdbc-achieve'
 include 'rooster-achieve'
 include 'netty-achieve'
 include 'mns-achieve'
+include 'htmlunit-achieve'
 include 'template-achieve'
 
 rootProject.name = 'mytest-achieve'

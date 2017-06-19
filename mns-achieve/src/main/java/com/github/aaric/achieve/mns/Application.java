@@ -52,7 +52,7 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         ExecutorService service = Executors.newFixedThreadPool(20);
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             service.execute(new Runnable() {
 
                 @Override
