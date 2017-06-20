@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
  * @since 1.0-SNAPSHOT
  */
 @SpringBootApplication
-public class Application implements CommandLineRunner {
+public class Application /*implements CommandLineRunner*/ {
 
     @Value("${aliyun.accessKeyId}")
     private String accessId;
@@ -47,7 +47,7 @@ public class Application implements CommandLineRunner {
         SpringApplication.run(Application.class, args);
     }
 
-    private static int counter = 0;
+    /*private static int counter = 0;
 
     @Override
     public void run(String... args) throws Exception {
@@ -71,5 +71,5 @@ public class Application implements CommandLineRunner {
             });
         }
         service.shutdown();
-    }
+    }*/
 }
