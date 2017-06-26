@@ -2,7 +2,6 @@ package com.github.aaric.achieve.kafka.listener;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.listener.MessageListener;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,11 +11,10 @@ import org.springframework.stereotype.Component;
  * @since 1.0-SNAPSHOT
  */
 @Component
-public class KafkaMessageListener implements MessageListener<String, String> {
+public class KafkaMessageListener {
 
     @KafkaListener(topics = {"testTopic"})
-    @Override
-    public void onMessage(ConsumerRecord<String, String> data) {
+    public void processMessage(ConsumerRecord<String, String> data) {
         System.out.printf("Consumer: %s-%s\n", data.key(), data.value());
     }
 }

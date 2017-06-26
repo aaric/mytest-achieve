@@ -1,8 +1,37 @@
 # Spring settings
 spring:
   kafka:
+    # Comma-delimited list of host:port pairs to use for establishing the initial connection to the Kafka cluster.
     bootstrap-servers: localhost:9092
+    template:
+      # Default topic to which messages will be sent.
+      default-topic: DefaultTopic
+    producer:
+      # When greater than zero, enables retrying of failed sends.
+      retries: 0
+      # Number of records to batch before sending.
+      batch-size: 4096
+      # Total bytes of memory the producer can use to buffer records waiting to be sent to the server.
+      buffer-memory: 65536
+      # Serializer class for keys.
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # Serializer class for values.
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
     consumer:
+      # Unique string that identifies the consumer group this consumer belongs to.
       group-id: myGroup
+      # If true the consumer's offset will be periodically committed in the background.
+      enable-auto-commit: true
+      # Frequency in milliseconds that the consumer offsets are auto-committed to Kafka if 'enable.auto.commit' true.
+      auto-commit-interval: 1000
+      # Deserializer class for keys.
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # Deserializer class for values.
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # What to do when there is no initial offset in Kafka or if the current offset does not exist any more on the server.
+      auto-offset-reset: latest
+    listener:
+      # Timeout in milliseconds to use when polling the consumer.
+      poll-timeout: 3000
   profiles:
     active: dev
