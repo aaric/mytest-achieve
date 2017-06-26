@@ -56,7 +56,7 @@ public class KafkaConfiguration {
         configs.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
         configs.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         configs.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        configs.put(ConsumerConfig.GROUP_ID_CONFIG, "group-test");
+        configs.put(ConsumerConfig.GROUP_ID_CONFIG, "myGroup");
         configs.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
         return configs;
     }
@@ -72,11 +72,6 @@ public class KafkaConfiguration {
         factory.setConcurrency(3);
         factory.getContainerProperties().setPollTimeout(3000);
         return factory;
-    }
-
-    @Bean
-    public MessageListener<String, String> listener() {
-        return new KafkaMessageListener();
     }
 
 }

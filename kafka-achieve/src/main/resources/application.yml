@@ -1,5 +1,8 @@
 # Spring settings
 spring:
-    profiles:
-        active: dev
-
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: myGroup
+  profiles:
+    active: dev
