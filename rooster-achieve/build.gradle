@@ -1,15 +1,15 @@
 dependencies {
-    compile 'io.netty:netty-all:4.1.11.Final'
+    compile("io.netty:netty-all:4.1.+")
 
-    compile 'org.apache.rocketmq:rocketmq-client:4.0.0-incubating'
+    compile("org.apache.rocketmq:rocketmq-client:4.0.+")
 
-    compile 'org.apache.hbase:hbase-client:1.2.5'
-    compile 'org.springframework.data:spring-data-hadoop:2.4.0.RELEASE'
+    compile("org.apache.hbase:hbase-client:1.2.+")
+    compile("org.springframework.data:spring-data-hadoop:2.4.+")
 
-    compile 'com.alibaba:druid:1.0.31'
-    compile 'mysql:mysql-connector-java:5.1.41'
+    compile("com.alibaba:druid:1.0.+")
+    compile("mysql:mysql-connector-java:5.1.+")
 
-    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.0') {
+    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.+") {
         exclude group: 'org.slf4j', module: 'log4j-over-slf4j'
         exclude group: 'ch.qos.logback', module: 'logback-classic'
     }
@@ -19,5 +19,5 @@ dependencies {
         exclude group: 'ch.qos.logback', module: 'logback-classic'
     }
 
-    testCompile 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:1.3.0'
+    testCompile("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:1.3.+")
 }

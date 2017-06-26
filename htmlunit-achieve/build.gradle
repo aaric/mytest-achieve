@@ -1,5 +1,5 @@
 dependencies {
-    compile 'commons-logging:commons-logging:1.2'
-    compile 'net.sourceforge.htmlunit:htmlunit:2.27'
-    compile 'org.jsoup:jsoup:1.10.3'
+    compile("commons-logging:commons-logging:1.+")
+    compile("net.sourceforge.htmlunit:htmlunit:2.+")
+    compile("org.jsoup:jsoup:1.10.+")
 }

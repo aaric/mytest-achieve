@@ -22,8 +22,6 @@ subprojects {
         mavenCentral()
     }
 
-    [compileJava,compileTestJava,javadoc]*.options*.encoding = "UTF-8"
-
     ext.libraries = [
             log: [
                     "org.slf4j:slf4j-api:$slf4jApiVersion"
@@ -48,10 +46,14 @@ subprojects {
         testRuntime libraries.logRuntime
     }
 
-    gradle.projectsEvaluated {
-        tasks.withType(JavaCompile) {
-            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-        }
+    compileJava{
+        options.encoding = "UTF-8"
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    }
+
+    compileTestJava{
+        options.encoding = "UTF-8"
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
     }
 
 }

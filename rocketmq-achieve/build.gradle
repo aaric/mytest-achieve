@@ -1,4 +1,4 @@
 dependencies {
-    compile 'org.apache.rocketmq:rocketmq-client:4.0.0-incubating'
-    compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    compile("org.apache.rocketmq:rocketmq-client:4.0.+")
+    compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
 }
