@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class KafkaMessageListener {
 
-    @KafkaListener(topics = {"testTopic"})
+    @KafkaListener(topics = {"DefaultTopic", "testTopic"})
     public void processMessage(ConsumerRecord<String, String> data) {
-        System.out.printf("Consumer: %s-%s\n", data.key(), data.value());
+        System.out.printf("Consumer: [%s#%s]-%s\n", data.topic(), data.key(), data.value());
     }
 }

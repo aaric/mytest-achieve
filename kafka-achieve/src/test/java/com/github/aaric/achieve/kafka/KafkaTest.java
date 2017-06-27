@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.UUID;
+
 /**
  * KafkaTest
  *
@@ -23,8 +25,11 @@ public class KafkaTest {
     @Test
     public void testProducer() {
         String topic = "testTopic";
+        String key = UUID.randomUUID().toString();
         String data = "hello";
-        System.out.printf("Producer: %s-%s\n", topic, data);
+        System.out.printf("Producer: [%s#%s]-%s\n", topic, key, data);
+        kafkaTemplate.sendDefault(data);
         kafkaTemplate.send(topic, data);
+        kafkaTemplate.send(topic, key, data);
     }
 }
