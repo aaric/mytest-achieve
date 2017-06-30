@@ -7,6 +7,7 @@ include 'netty-achieve'
 include 'mns-achieve'
 include 'htmlunit-achieve'
 include 'kafka-achieve'
+include 'jpa-achieve'
 include 'template-achieve'
 
 rootProject.name = 'mytest-achieve'

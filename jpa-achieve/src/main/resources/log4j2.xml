@@ -4,15 +4,15 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %c{-3} - %msg%n"/>
         </Console>
-        <!--<File name="LogFile" filename="output.log">
+        <File name="LogFile" filename="output.log">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %c{-3} - %msg%n" charset="utf-8"/>
-        </File>-->
+        </File>
     </Appenders>
     <Loggers>
-        <Logger name="com.incarcloud.rooster" level="DEBUG"/>
+        <Logger name="com.incarcloud.rooster" level="INFO"/>
         <Root level="WARN">
             <AppenderRef ref="Console"/>
-            <!--<AppenderRef ref="LogFile"/>-->
+            <AppenderRef ref="LogFile"/>
         </Root>
     </Loggers>
 </Configuration>
