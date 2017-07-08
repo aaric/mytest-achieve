@@ -8,6 +8,7 @@ include 'mns-achieve'
 include 'htmlunit-achieve'
 include 'kafka-achieve'
 include 'jpa-achieve'
+include 'elasticsearch-achieve'
 include 'template-achieve'
 
 rootProject.name = 'mytest-achieve'
