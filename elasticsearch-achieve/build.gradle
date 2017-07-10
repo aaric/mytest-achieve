@@ -1,3 +1,9 @@
 dependencies {
     compile('org.elasticsearch:elasticsearch:2.3.3')
+    compile("com.alibaba:fastjson:1.2.+")
+
+    compile("org.springframework.boot:spring-boot-starter:$springBootVersion") {
+        exclude group: 'org.slf4j', module: 'log4j-over-slf4j'
+        exclude group: 'ch.qos.logback', module: 'logback-classic'
+    }
 }
