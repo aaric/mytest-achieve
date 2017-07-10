@@ -18,10 +18,7 @@ public class ESBeanUtil {
 
     public static List<ESBean> imports(String index, String type, String fileName) throws IOException {
         List<ESBean> beanList = new ArrayList<>();
-        String basePath = System.getProperty("user.dir")
-                + File.separator + "src"
-                + File.separator + "main"
-                + File.separator + "resources";
+        String basePath = PathUtil.getBasePath();
         FileReader reader = new FileReader(new File(basePath, fileName));
         BufferedReader buffer = new BufferedReader(reader);
         String id;
