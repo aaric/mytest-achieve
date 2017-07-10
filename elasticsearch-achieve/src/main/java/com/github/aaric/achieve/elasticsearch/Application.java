@@ -32,14 +32,18 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        String clusterName = "es-cluster";
         Map<String, String> serverMap = new HashMap<>();
         serverMap.put("linux7-1", "9300");
+        String clusterName = "es-cluster";
+//        serverMap.put("10.154.26.78", "9300");
+//        serverMap.put("10.105.237.127", "9300");
+//        serverMap.put("10.154.43.35", "9300");
+//        String clusterName = "elasticsearch";
 
         new Thread(new ESReader("i_his_battery_data_v1", "i_his_battery_data", "his_battery_data.dat", blockingQueue)).start();
         new Thread(new ESReader("i_his_bms_data_v1", "i_his_bms_data", "his_bms_data.dat", blockingQueue)).start();
         new Thread(new ESReader("i_his_gprs_data_v1", "i_his_gprs_data", "his_gps_data.dat", blockingQueue)).start();
-        new Thread(new ESReader("i_his_hvac_data", "i_his_hvac_data", "his_hvac_data.dat", blockingQueue)).start();
+        new Thread(new ESReader("i_his_hvac_data_v1", "i_his_hvac_data", "his_hvac_data.dat", blockingQueue)).start();
         new Thread(new ESReader("i_his_obc_data_v1", "i_his_obc_data", "his_obc_data.dat", blockingQueue)).start();
         new Thread(new ESReader("i_his_vehicle_motor_data_v2", "i_his_vehicle_motor_data", "his_motor_data.dat", blockingQueue)).start();
         new Thread(new ESImporter(clusterName, serverMap, blockingQueue)).start();
