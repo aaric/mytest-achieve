@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * JdbcTemplate测试类
+ * JdbcTemplateTest
  *
  * @author Aaric, created on 2017-05-25T17:39.
  * @since 1.0-SNAPSHOT

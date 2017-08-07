@@ -1,0 +1,4 @@
+dependencies {
+    compile('org.apache.zookeeper:zookeeper:3.4.10')
+    /*compile('com.101tec:zkclient:0.10')*/
+}
