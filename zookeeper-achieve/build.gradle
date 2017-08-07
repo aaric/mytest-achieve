@@ -1,4 +1,11 @@
 dependencies {
-    compile('org.apache.zookeeper:zookeeper:3.4.10')
     /*compile('com.101tec:zkclient:0.10')*/
+    compile('org.apache.zookeeper:zookeeper:3.4.10') {
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    }
+
+    compile("org.springframework.boot:spring-boot-starter:$springBootVersion") {
+        exclude group: 'org.slf4j', module: 'log4j-over-slf4j'
+        exclude group: 'ch.qos.logback', module: 'logback-classic'
+    }
 }

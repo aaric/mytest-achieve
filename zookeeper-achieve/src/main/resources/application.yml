@@ -3,3 +3,8 @@ spring:
     profiles:
         active: dev
 
+# Achieve settings
+achieve:
+    zookeeper:
+        connectString: 127.0.0.1:2181
+        sessionTimeout: 3000
