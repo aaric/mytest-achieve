@@ -11,6 +11,7 @@ include 'jpa-achieve'
 include 'elasticsearch-achieve'
 include 'mybatis-achieve'
 include 'zookeeper-achieve'
+include 'shiro-achieve'
 include 'template-achieve'
 
 rootProject.name = 'mytest-achieve'
