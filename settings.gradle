@@ -12,6 +12,7 @@ include 'elasticsearch-achieve'
 include 'mybatis-achieve'
 include 'zookeeper-achieve'
 include 'shiro-achieve'
+include 'hadoop-achieve'
 include 'template-achieve'
 
 rootProject.name = 'mytest-achieve'
