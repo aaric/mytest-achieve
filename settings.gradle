@@ -13,6 +13,7 @@ include 'mybatis-achieve'
 include 'zookeeper-achieve'
 include 'shiro-achieve'
 include 'hadoop-achieve'
+include 'lambda-achieve'
 include 'template-achieve'
 
 rootProject.name = 'mytest-achieve'
